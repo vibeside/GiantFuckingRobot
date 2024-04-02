@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
+	  <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 	<PropertyGroup>
@@ -20,5 +21,17 @@
 	  <PackageReference Include="TeamBMX.LobbyCompatibility" Version="1.*" PrivateAssets="all" />
 	  <PackageReference Include="LethalCompany.GameLibs.Steam" Version="50.0.0-beta.0-ngd.2" />
   </ItemGroup>
-
+	<ItemGroup>
+		<BuildArtifacts Include="$(TargetPath)" />
+		<PluginOutput Include="C:\Users\Aaron\AppData\Roaming\r2modmanPlus-local\LethalCompany\profiles\Vanilla files\BepInEx\plugins" />
+		<LethalBepin Include="C:\Program Files (x86)\Steam\steamapps\common\Lethal Company\BepInEx\plugins" />
+	</ItemGroup>
+	<PropertyGroup>
+		<Assets>magicksbundle</Assets>
+		<BundleFolder>C:\Users\Aaron\source\repos\bundles</BundleFolder>
+	</PropertyGroup>
+	<Target Name="Copy and Test" AfterTargets="PostBuildEvent">
+		<Copy DestinationFolder="@(PluginOutput)" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="true" SourceFiles="@(BuildArtifacts)" />
+		<Copy DestinationFolder="@(LethalBepin)" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="true" SourceFiles="@(BuildArtifacts)" />
+	</Target>
 </Project>
